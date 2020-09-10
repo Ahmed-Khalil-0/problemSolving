@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        //this variable should be type greater then the X be' it multipled by 10.
+        //if the x has the maximum value then it will case an overflow.
+        long rotatedX = 0;
+        int temp = x ;
+        if(x < 0)
+            return false;
+        while(temp != 0){
+            rotatedX  *= 10;
+            rotatedX += temp%10;
+            temp /= 10;
+        }
+        return (rotatedX == x)? true:false;
+    }
+};
