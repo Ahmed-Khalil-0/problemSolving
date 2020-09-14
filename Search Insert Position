@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int start = 0;
+        int end = nums.size()-1;
+        int midPoint = 0; 
+        while(start <= end){
+            midPoint = (end + start) / 2;
+            if(nums[midPoint] > target){
+                end = midPoint - 1;
+                if(midPoint < 0)
+                    midPoint = 0;
+            }
+            else if(nums[midPoint] < target){
+                start = ++midPoint;
+            }
+            else if(nums[midPoint] == target){
+                return midPoint;
+            }
+        }
+       return midPoint;
+    }
+};
