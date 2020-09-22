@@ -1,0 +1,48 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* prev;
+    Node* next;
+    Node* child;
+};
+*/
+
+class Solution {
+    
+public:
+    Node* flatten(Node* head) {
+        static int functionCall = 0;
+       // bool lock = false;
+        Node* wipper = head;
+        
+        while(wipper -> next != nullptr){
+            if(HasChild(wipper)){
+                functionCall++;
+                Node* childishPointer = flatten(wipper -> child);
+                cout << childishPointer -> val << endl;
+                if(childishPointer != nullptr){
+                    childishPointer -> next = wipper -> next;
+                    (wipper -> child)->prev = wipper;//
+                    wipper -> next = wipper -> child;
+                    (wipper -> next) -> prev = childishPointer;
+                    wipper -> child -> child = nullptr;
+                    wipper -> child = nullptr;
+                }
+            }
+            if(wipper -> next != nullptr)
+                wipper = wipper -> next;
+        }
+        if(functionCall > 0){
+            functionCall--;
+           return wipper;
+        }
+        else
+            return head;
+    }
+    private: 
+    bool HasChild(Node* node){
+        return ((node -> child) != nullptr)? true:false;
+    }
+};
