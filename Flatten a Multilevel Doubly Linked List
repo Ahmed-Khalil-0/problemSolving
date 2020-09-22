@@ -16,23 +16,27 @@ public:
         static int functionCall = 0;
        // bool lock = false;
         Node* wipper = head;
+        if(head == nullptr)
+            return head;
         
-        while(wipper -> next != nullptr){
-            if(HasChild(wipper)){
+        while(true){
+            if((wipper -> child) != nullptr){
                 functionCall++;
                 Node* childishPointer = flatten(wipper -> child);
-                cout << childishPointer -> val << endl;
                 if(childishPointer != nullptr){
                     childishPointer -> next = wipper -> next;
-                    (wipper -> child)->prev = wipper;//
+                    if(childishPointer -> next != nullptr)
+                        (childishPointer -> next) -> prev = childishPointer;
                     wipper -> next = wipper -> child;
-                    (wipper -> next) -> prev = childishPointer;
-                    wipper -> child -> child = nullptr;
+                    (wipper -> child)->prev = wipper;
+                    
                     wipper -> child = nullptr;
                 }
             }
             if(wipper -> next != nullptr)
                 wipper = wipper -> next;
+            else if(wipper -> next == nullptr)
+                break;
         }
         if(functionCall > 0){
             functionCall--;
@@ -40,9 +44,5 @@ public:
         }
         else
             return head;
-    }
-    private: 
-    bool HasChild(Node* node){
-        return ((node -> child) != nullptr)? true:false;
     }
 };
