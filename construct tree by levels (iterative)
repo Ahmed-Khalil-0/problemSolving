@@ -1,0 +1,25 @@
+Node* createATree(vector<int> vec) {
+	Node* root = NULL;
+	queue<Node*> childishQueue;
+	int next = 0;
+	if (vec.size() != 0) {
+		root = new Node(vec[next++]);
+		childishQueue.push(root);
+	}
+	while (next < vec.size()&& !childishQueue.empty()) {
+		Node* n = childishQueue.front();
+		if (vec[next] != NULL) {
+			n->left = new Node(vec[next]);
+			childishQueue.push(n->left);
+		}
+		next++;
+		if (vec[next] != NULL) {
+			n->right = new Node(vec[next]);
+			childishQueue.push(n->right);
+		}
+		next++;
+		childishQueue.pop();
+
+	}
+	return root;
+}
