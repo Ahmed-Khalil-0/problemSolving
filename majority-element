@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        if(nums.size() == 1){
+            return nums[0];
+        }
+        unordered_map<int, int> umap; 
+        for(int i = 0; i < nums.size();i++){
+            //this element does not exists.
+            if(umap.find(nums[i]) == umap.end()){
+                umap[nums[i]] = 1;
+            }else{
+                umap[nums[i]] += 1;
+            }
+        }
+        int max = INT_MIN;
+        int value = 0;
+        for(const auto &p:umap){
+            if(p.second > max){
+                max = p.second;
+                value = p.first;
+            }
+        }
+        return value;
+    }
+};
